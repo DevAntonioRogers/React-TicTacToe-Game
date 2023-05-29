@@ -47,7 +47,7 @@ const App = () => {
 
   //Render Gameboard
   const renderSquare = (index) => (
-    <button onClick={() => handleClick(index)} className="w-16 h-16 bg-white m-1 rounded-sm">
+    <button onClick={() => handleClick(index)} className="w-16 h-16 bg-white m-1 rounded-sm hover:bg-white/80">
       {board[index]}
     </button>
   );
@@ -85,7 +85,7 @@ const App = () => {
           {renderSquare(7)}
           {renderSquare(8)}
         </div>
-        <button onClick={resetGame} className="bg-white mt-3">
+        <button onClick={resetGame} className="bg-white mt-3 hover:bg-white/80">
           Reset Game
         </button>
       </div>
