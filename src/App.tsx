@@ -5,7 +5,7 @@ const initialBoard = Array(9).fill(null);
 const App = () => {
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [winner, setWinner] = useState(null);
+  const [winner, setWinner] = useState("");
 
   //Handle Play
   const handleClick = (index) => {
@@ -52,6 +52,12 @@ const App = () => {
     </button>
   );
 
+  const resetGame = () => {
+    setBoard(initialBoard);
+    setCurrentPlayer("X");
+    setWinner("");
+  };
+
   //Render Winner
   let status;
   if (winner) {
@@ -63,7 +69,7 @@ const App = () => {
   return (
     <div className="w-screen h-screen bg-black flex justify-center items-center">
       <div className="flex flex-col">
-        <h1 className="text-white text-center">{status}</h1>
+        <h1 className="text-white text-center mb-3">{status}</h1>
         <div className="flex">
           {renderSquare(0)}
           {renderSquare(1)}
@@ -79,6 +85,9 @@ const App = () => {
           {renderSquare(7)}
           {renderSquare(8)}
         </div>
+        <button onClick={resetGame} className="bg-white mt-3">
+          Reset Game
+        </button>
       </div>
     </div>
   );
