@@ -1,21 +1,21 @@
 import { useState } from "react";
 
-// const initialBoard = Array(9).fill(null);
+const initialBoard = Array(9).fill(null);
 
 const App = () => {
-  const [board, setBoard] = useState([]);
+  const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [winner, setWinner] = useState(null);
 
   //Handle Play
   const handleClick = (index) => {
-    if (board[index]) {
+    if (board[index] || winner) {
       return;
     }
     const newBoard = [...board];
     newBoard[index] = currentPlayer;
     setBoard(newBoard);
-
+    checkWinner(newBoard);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   };
 
@@ -39,6 +39,10 @@ const App = () => {
         return;
       }
     }
+
+    if (!board.includes(null)) {
+      setWinner("Draw");
+    }
   };
 
   //Render Gameboard
@@ -48,9 +52,18 @@ const App = () => {
     </button>
   );
 
+  //Render Winner
+  let status;
+  if (winner) {
+    status = winner === "Draw" ? "It's a draw" : `Player ${winner} wins!`;
+  } else {
+    status = `Current player: ${currentPlayer}`;
+  }
+
   return (
     <div className="w-screen h-screen bg-black flex justify-center items-center">
-      <div>
+      <div className="flex flex-col">
+        <h1 className="text-white text-center">{status}</h1>
         <div className="flex">
           {renderSquare(0)}
           {renderSquare(1)}
