@@ -52,6 +52,7 @@ const App = () => {
     </button>
   );
 
+  //Reset Game
   const resetGame = () => {
     setBoard(initialBoard);
     setCurrentPlayer("X");
