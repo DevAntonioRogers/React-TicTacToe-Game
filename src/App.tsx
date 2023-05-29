@@ -3,21 +3,23 @@ import { useState } from "react";
 const App = () => {
   const [board, setBoard] = useState([]);
 
-  const renderSquare = (index) => <button className="w-16 h-16 bg-teal-800 m-[1px]">{board[index]}</button>;
+  //Render Gameboard
+  const renderSquare = (index) => <button className="w-16 h-16 bg-teal-800 ml-2 rounded-sm">{board[index]}</button>;
+
   return (
-    <div>
+    <div className="w-screen h-screen bg-black flex justify-center items-center">
       <div>
-        <div className="row-1">
+        <div>
           {renderSquare(0)}
           {renderSquare(1)}
           {renderSquare(2)}
         </div>
-        <div className="row-2">
+        <div>
           {renderSquare(3)}
           {renderSquare(4)}
           {renderSquare(5)}
         </div>
-        <div className="row-3">
+        <div>
           {renderSquare(6)}
           {renderSquare(7)}
           {renderSquare(8)}
