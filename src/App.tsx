@@ -5,10 +5,10 @@ const initialBoard = Array(9).fill(null);
 const App = () => {
   const [board, setBoard] = useState(initialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [winner, setWinner] = useState("");
+  const [winner, setWinner] = useState<string | null>(null);
 
   //Handle Play
-  const handleClick = (index) => {
+  const handleClick = (index: number) => {
     if (board[index] || winner) {
       return;
     }
@@ -20,7 +20,7 @@ const App = () => {
   };
 
   //Check for a winner
-  const checkWinner = (board) => {
+  const checkWinner = (board: (string | null)[]) => {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -46,7 +46,7 @@ const App = () => {
   };
 
   //Render Gameboard
-  const renderSquare = (index) => (
+  const renderSquare = (index: number) => (
     <button onClick={() => handleClick(index)} className="w-16 h-16 bg-white m-1 rounded-sm hover:bg-white/80">
       {board[index]}
     </button>
