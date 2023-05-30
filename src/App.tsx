@@ -1,14 +1,14 @@
 import { useState } from "react";
 
-const initialBoard = Array(9).fill(null);
+const intialBoard = Array(9).fill(null);
 
 const App = () => {
-  const [board, setBoard] = useState(initialBoard);
+  const [board, setBoard] = useState(intialBoard);
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [winner, setWinner] = useState<string | null>(null);
 
-  //Handle Play
-  const handleClick = (index: number) => {
+  //HANDLE PLAY
+  const handlePlay = (index: number) => {
     if (board[index] || winner) {
       return;
     }
@@ -19,7 +19,7 @@ const App = () => {
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   };
 
-  //Check for a winner
+  //CHECK WINNER
   const checkWinner = (board: (string | null)[]) => {
     const lines = [
       [0, 1, 2],
@@ -39,38 +39,36 @@ const App = () => {
         return;
       }
     }
-
     if (!board.includes(null)) {
       setWinner("Draw");
     }
   };
 
-  //Render Gameboard
+  //RESET GAME
+  const resetGame = () => {
+    setBoard(intialBoard);
+    setCurrentPlayer("X");
+    setWinner(null);
+  };
+
+  //RENDER GAMEBOARD
   const renderSquare = (index: number) => (
-    <button onClick={() => handleClick(index)} className="w-16 h-16 bg-white m-1 rounded-sm hover:bg-white/80">
+    <button onClick={() => handlePlay(index)} className="w-16 h-16 bg-white m-1 rounded-sm hover:bg-white/80">
       {board[index]}
     </button>
   );
 
-  //Reset Game
-  const resetGame = () => {
-    setBoard(initialBoard);
-    setCurrentPlayer("X");
-    setWinner("");
-  };
-
-  //Render Winner
+  //STATUS
   let status;
   if (winner) {
-    status = winner === "Draw" ? "It's a draw" : `Player ${winner} wins!`;
+    status = winner === "Draw" ? "It's a draw!" : `Player ${winner} wins!`;
   } else {
     status = `Current player: ${currentPlayer}`;
   }
-
   return (
     <div className="w-screen h-screen bg-black flex justify-center items-center">
-      <div className="flex flex-col">
-        <h1 className="text-white text-center mb-3">{status}</h1>
+      <div>
+        <h1 className="text-white text-center font-bold text-2xl">{status}</h1>
         <div className="flex">
           {renderSquare(0)}
           {renderSquare(1)}
@@ -86,7 +84,7 @@ const App = () => {
           {renderSquare(7)}
           {renderSquare(8)}
         </div>
-        <button onClick={resetGame} className="bg-white mt-3 hover:bg-white/80">
+        <button onClick={resetGame} className="text-2xl bg-white mt-3 w-full rounded-xl hover:bg-white/90">
           Reset Game
         </button>
       </div>
